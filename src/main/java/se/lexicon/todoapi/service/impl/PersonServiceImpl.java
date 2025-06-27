@@ -1,21 +1,32 @@
 package se.lexicon.todoapi.service.impl;
 
-/*@Service
-public class PersonServiceImpl extends PersonService {
-    private PersonRepository personRepository;
-   // MessageService<Email> emailService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import se.lexicon.notify.model.Email;
+import se.lexicon.notify.service.MessageService;
+import se.lexicon.todoapi.dto.PersonDto;
+import se.lexicon.todoapi.entity.Person;
+import se.lexicon.todoapi.repository.PersonRepository;
+import se.lexicon.todoapi.service.PersonService;
 
-   // @Autowired
-   // public PersonServiceImpl(PersonRepository personRepository, MessageService<Email> emailService) {
-     //   this.personRepository = personRepository;
-       // this.emailService = emailService;
+import java.util.List;
+
+@Service
+public class PersonServiceImpl implements PersonService{
+    private PersonRepository personRepository;
+    MessageService<Email> emailService;
+
+    @Autowired
+    public PersonServiceImpl(PersonRepository personRepository, MessageService<Email> emailService) {
+        this.personRepository = personRepository;
+        this.emailService = emailService;
     }
 
-   // @Override
-   // public List<PersonDto> findAll() {
-    //    return personRepository.findAll().stream()
-    //            .map(person -> new PersonDto(person.getId(), person.getName(), person.getEmail()))
-     //           .toList();
+    @Override
+    public List<PersonDto> findAll() {
+        return personRepository.findAll().stream()
+                .map(person -> new PersonDto(person.getId(), person.getName(), person.getEmail()))
+                .toList();
 
     }
 
@@ -50,11 +61,13 @@ public class PersonServiceImpl extends PersonService {
     public void delete(Long id) {
         //find person by id
         Person foundPerson = personRepository.findById(id)
-                //if person doent exist throw exception
+                //if person doesnt exist throw exception
                 .orElseThrow(() -> new IllegalArgumentException("ID not found" + id));
         //delete person
         personRepository.delete(foundPerson);
     }
-*/
+}
+
+
 
 
